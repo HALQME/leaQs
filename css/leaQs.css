@@ -40,11 +40,12 @@ body {
 h1 {
     color: #333;
     grid-column: 1 / -1;
+    font-size: medium;
 }
 
 h2 {
     color: #444;
-    font-size: medium;
+    font-size: small;
 }
 
 img {
@@ -69,7 +70,8 @@ p {
     #container {
         max-width: 100%;
         box-shadow: none;
-        display: block;
+        display: grid; /* グリッドレイアウトを維持 */
+        grid-template-columns: 1fr 1fr; /* グリッドの列を維持 */
     }
 
     .quiz-item {
