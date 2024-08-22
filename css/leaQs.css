@@ -3,7 +3,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #e4ebee;
 }
 
 #container {
@@ -53,9 +53,10 @@ h2 {
 }
 
 img {
-    max-width: 40%;
+    max-width: 24%;
     height: auto;
     margin: 10px 0;
+    display: inline-block;
 }
 
 ul {
