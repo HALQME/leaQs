@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "leaQs",
+  "version": "1.0",
+  "description": "[Unofficial] Export your meaQs with answers by PDF",
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "icons": {
+    "16": "./icons/icon16.png",
+    "32": "./icons/icon32.png",
+    "48": "./icons/icon48.png",
+    "128": "./icons/icon128.png"
+  },
+  "author": "68320771+HALQME@users.noreply.github.com",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://lms.omu.ac.jp/mod/meaqs/student/appraisals.php?id=*"
+      ],
+      "js": [
+        "dist/js/content.js"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "dist/js/background.js"
+  },
+  "action": {}
+}
