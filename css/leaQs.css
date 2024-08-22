@@ -32,8 +32,12 @@ body {
 }
 
 .quiz-userAnswer {
-    color: #008f07;
-    font-weight: bold;
+    color: #207224;
+    font-style: italic;
+}
+
+.quiz-userAnswer-incorrect {
+    color: #af6715;
     font-style: italic;
 }
 
