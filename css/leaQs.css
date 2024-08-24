@@ -21,14 +21,14 @@ body {
 
 .quiz-item {
   border-bottom: 1px solid #eee;
-  break-inside: avoid;
+  min-height: 200px;
   padding-bottom: 10px;
   page-break-inside: avoid;
 }
 
 .quiz-question {
   color: #333;
-  margin: 10px 0px 10px 50px;
+  margin: 10px 0px 30px 50px;
 }
 
 .quiz-example {
@@ -69,6 +69,7 @@ img {
 ul {
   padding-left: 20px;
   margin: 0px;
+  list-style: lower-alpha;
 }
 
 li {
