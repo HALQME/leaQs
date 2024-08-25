@@ -36,7 +36,7 @@ body {
   font-weight: bold;
 }
 
-.quiz-userAnswer {
+.quiz-userAnswer-correct {
   color: #207224;
   font-style: italic;
 }
