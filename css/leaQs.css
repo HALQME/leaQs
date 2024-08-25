@@ -10,17 +10,17 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   background-color: #fff;
-  padding: 20px;
+  padding: clamp(16px, 5%, 12px);
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 20px;
+  column-gap: clamp(16px, 5%, 12px);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   align-items: stretch;
 }
 
 .quiz-item {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
   min-height: 200px;
   padding-bottom: 10px;
   page-break-inside: avoid;
@@ -60,7 +60,7 @@ h2 {
 }
 
 img {
-  max-width: 24%;
+  max-width: 48%;
   height: auto;
   margin: 10px 0;
   display: inline-block;
@@ -86,10 +86,13 @@ p {
   }
 
   #container {
-    max-width: 100%;
-    box-shadow: none;
-    display: grid; /* グリッドレイアウトを維持 */
-    grid-template-columns: 1fr 1fr; /* グリッドの列を維持 */
+    padding: clamp(16px, 5%, 12px);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    column-gap: clamp(16px, 5%, 12px);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: stretch;
   }
 
   .quiz-item {
