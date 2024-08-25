@@ -4,7 +4,7 @@
   "description": "export your meaqs answers",
   "main": "content.js",
   "author": "HAL <68320771+HALQME@users.noreply.github.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "devDependencies": {
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4"
