@@ -1,2 +1,17 @@
-node_modules
-*.lock
+# exclude history
+history
+
+# env files
+.env*
+
+# dependencies
+/node_modules
+
+# production
+/dist
+
+# debug
+npm-debug.log*
+
+# typescript
+*.tsbuildinfo

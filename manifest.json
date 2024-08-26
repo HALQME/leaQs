@@ -18,7 +18,7 @@
     }
   ],
   "background": {
-    "service_worker": "dist/js/background.js"
+    "service_worker": "dist/background.js"
   },
   "action": {}
 }
