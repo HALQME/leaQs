@@ -1,6 +1,9 @@
 createPDFButton();
 
 function createPDFButton() {
+    const targetUrl = "https://lms.omu.ac.jp/mod/meaqs/student/appraisals.php?";
+    if (!window.location.href.startsWith(targetUrl)) return;
+
     const pdfButton = document.getElementById("pdf_button");
     if (!pdfButton) return;
 
@@ -64,7 +67,7 @@ function extractQuizElements() {
                     /\s+/g,
                     ""
                 );
-                if (questionNode !== "") {
+                if (questionNode !== undefined) {
                     quiz.question.push(questionNode);
                 }
             }
@@ -84,19 +87,28 @@ function extractQuizElements() {
                 for (let j = 0; j < choiceChilds.length; j += 1) {
                     const textChild = choiceChilds[j];
                     if (textChild.nodeType === 1) {
-                        const textNode = textChild.getElementsByTagName("p");
+                        const textNode = (
+                            textChild as Element
+                        ).getElementsByTagName("p");
                         if (textNode.length !== 0) {
                             for (let k = 0; k < textNode.length; k += 1) {
                                 text.push(textNode[k].textContent);
                             }
                         } else {
-                            if (textChild.querySelector(".text_to_html")) {
-                                text.push(
-                                    textChild.querySelector(".text_to_html")
-                                        .textContent
-                                );
+                            const textToHtmlElement = (
+                                textChild as Element
+                            )?.querySelector(".text_to_html") as Element | null;
+                            if (textToHtmlElement) {
+                                const textContent =
+                                    textToHtmlElement?.textContent;
+                                if (textContent) {
+                                    text.push(textContent);
+                                }
                             } else {
-                                text.push(textChild.textContent);
+                                const textContent = textChild.textContent;
+                                if (textContent) {
+                                    text.push(textContent);
+                                }
                             }
                         }
                     }
@@ -106,30 +118,42 @@ function extractQuizElements() {
                 // 選択肢問題の正答を取得
                 if (choices.querySelector("strong .text_to_html")) {
                     const correct = choices.querySelector("strong");
-                    const correctChilds = correct.childNodes;
+                    const correctChilds = correct ? correct.childNodes : [];
                     const text = [];
                     for (let j = 0; j < correctChilds.length; j += 1) {
                         const textChild = correctChilds[j];
                         if (textChild.nodeType === 1) {
-                            const textNode =
-                                textChild.getElementsByTagName("p");
+                            const textNode = (
+                                textChild as Element
+                            ).getElementsByTagName("p");
                             if (textNode.length !== 0) {
                                 for (let k = 0; k < textNode.length; k += 1) {
                                     text.push(textNode[k].textContent);
                                 }
                             } else {
-                                if (textChild.querySelector(".text_to_html")) {
-                                    text.push(
-                                        textChild.querySelector(".text_to_html")
-                                            .textContent
-                                    );
+                                const textToHtmlElement = (
+                                    textChild as Element
+                                )?.querySelector(
+                                    ".text_to_html"
+                                ) as Element | null;
+                                if (textToHtmlElement) {
+                                    const textContent =
+                                        textToHtmlElement?.textContent;
+                                    if (textContent) {
+                                        text.push(textContent);
+                                    }
                                 } else {
-                                    text.push(textChild.textContent);
+                                    const textContent = textChild.textContent;
+                                    if (textContent) {
+                                        text.push(textContent);
+                                    }
                                 }
                             }
                         }
                     }
-                    quiz.correct = text;
+                    quiz.correct = text.filter(
+                        (value) => value !== null
+                    ) as string[];
                 }
             }
         }
@@ -146,29 +170,37 @@ function extractQuizElements() {
                 container.querySelector(
                     ".answer-incorrect .form-control-static"
                 );
-            const answerChilds = answerElement.childNodes;
+            const answerChilds = answerElement?.childNodes ?? [];
             const text = [];
             for (let j = 0; j < answerChilds.length; j += 1) {
                 const textChild = answerChilds[j];
                 if (textChild.nodeType === 1) {
-                    const textNode = textChild.getElementsByTagName("p");
+                    const textNode = (
+                        textChild as Element
+                    ).getElementsByTagName("p");
                     if (textNode.length !== 0) {
                         for (let k = 0; k < textNode.length; k += 1) {
                             text.push(textNode[k].textContent);
                         }
                     } else {
-                        if (textChild.querySelector(".text_to_html")) {
-                            text.push(
-                                textChild.querySelector(".text_to_html")
-                                    .textContent
-                            );
+                        const textToHtmlElement = (
+                            textChild as Element
+                        )?.querySelector(".text_to_html") as Element | null;
+                        if (textToHtmlElement) {
+                            const textContent = textToHtmlElement?.textContent;
+                            if (textContent) {
+                                text.push(textContent);
+                            }
                         } else {
-                            text.push(textChild.textContent);
+                            const textContent = textChild.textContent;
+                            if (textContent) {
+                                text.push(textContent);
+                            }
                         }
                     }
                 }
             }
-            quiz.answer = text;
+            quiz.answer = text.filter((value) => value !== null) as string[];
         }
 
         // 画像の抽出
@@ -177,6 +209,7 @@ function extractQuizElements() {
             quiz.image = [];
             imageElement.forEach((image) => {
                 const src = image.src;
+                //@ts-ignore quiz.imageは-3行部分で初期化しているため、undefinedではない
                 quiz.image.push(src);
             });
         }
@@ -192,24 +225,35 @@ function extractQuizElements() {
                 for (let j = 0; j < correctChilds.length; j += 1) {
                     const textChild = correctChilds[j];
                     if (textChild.nodeType === 1) {
-                        const textNode = textChild.getElementsByTagName("p");
+                        const textNode = (
+                            textChild as Element
+                        ).querySelectorAll("p");
                         if (textNode.length !== 0) {
                             for (let k = 0; k < textNode.length; k += 1) {
                                 text.push(textNode[k].textContent);
                             }
                         } else {
-                            if (textChild.querySelector(".text_to_html")) {
-                                text.push(
-                                    textChild.querySelector(".text_to_html")
-                                        .textContent
-                                );
+                            const textToHtmlElement = (
+                                textChild as Element
+                            )?.querySelector(".text_to_html") as Element | null;
+                            if (textToHtmlElement) {
+                                const textContent =
+                                    textToHtmlElement?.textContent;
+                                if (textContent) {
+                                    text.push(textContent);
+                                }
                             } else {
-                                text.push(textChild.textContent);
+                                const textContent = textChild.textContent;
+                                if (textContent) {
+                                    text.push(textContent);
+                                }
                             }
                         }
                     }
                 }
-                quiz.correct = text;
+                quiz.correct = text.filter(
+                    (value) => value !== null
+                ) as string[];
             }
             if (answerElements[2]) {
                 const answerChilds = answerElements[2].childNodes;
@@ -217,31 +261,42 @@ function extractQuizElements() {
                 for (let j = 0; j < answerChilds.length; j += 1) {
                     const textChild = answerChilds[j];
                     if (textChild.nodeType === 1) {
-                        const textNode = textChild.getElementsByTagName("p");
+                        const textNode = (
+                            textChild as Element
+                        ).querySelectorAll("p");
                         if (textNode.length !== 0) {
                             for (let k = 0; k < textNode.length; k += 1) {
                                 text.push(textNode[k].textContent);
                             }
                         } else {
-                            if (textChild.querySelector(".text_to_html")) {
-                                text.push(
-                                    textChild.querySelector(".text_to_html")
-                                        .textContent
-                                );
+                            const textToHtmlElement = (
+                                textChild as Element
+                            )?.querySelector(".text_to_html") as Element | null;
+                            if (textToHtmlElement) {
+                                const textContent =
+                                    textToHtmlElement?.textContent;
+                                if (textContent) {
+                                    text.push(textContent);
+                                }
                             } else {
-                                text.push(textChild.textContent);
+                                const textContent = textChild.textContent;
+                                if (textContent) {
+                                    text.push(textContent);
+                                }
                             }
                         }
                     }
                 }
-                quiz.answer = text;
+                quiz.answer = text.filter(
+                    (value) => value !== null
+                ) as string[];
             }
         }
 
-        // 正答と解答の両方がそろっていない場合に両方にnullを代入
-        if (!quiz.correct && !quiz.answer) {
-            quiz.correct = null;
-            quiz.answer = null;
+        // If either quiz.correct or quiz.answer is null, the other must be also null.
+        if (quiz.correct === undefined || quiz.answer === undefined) {
+            quiz.correct = undefined;
+            quiz.answer = undefined;
         }
 
         quizzes.push(quiz);

@@ -11,7 +11,11 @@ chrome.runtime.onMessage.addListener((request) => {
     }
 });
 
-async function formatAndDisplayQuiz(quizData, className, sectionName) {
+async function formatAndDisplayQuiz(
+    quizData: Quiz[],
+    className: string,
+    sectionName: string
+) {
     try {
         const tab = await chrome.tabs.create({ url: "leaQs.html" });
         const classAndSection = className + "/ " + sectionName;
