@@ -1,4 +1,3 @@
-// @ts-nocheck
 /// <refarence types="chrome"/>
 /// <reference path="./types.d.ts" />
 
@@ -8,7 +7,7 @@ chrome.runtime.onMessage.addListener((request) => {
     }
 });
 
-function displaySummary(quizData, classAndSection) {
+function displaySummary(quizData: Quiz[], classAndSection: string) {
     const container = document.getElementById("container");
 
     // クラスとセクション情報を表示
@@ -51,7 +50,7 @@ function displaySummary(quizData, classAndSection) {
 
         if (quiz.choices.length !== 0) {
             const choicesElement = document.createElement("ul");
-            quiz.choices.forEach((choice) => {
+            quiz.choices.forEach((choice: string[]) => {
                 const choiceItem = document.createElement("li");
                 choice.forEach((text) => {
                     const textElement = document.createElement("p");
@@ -103,7 +102,7 @@ function displaySummary(quizData, classAndSection) {
     });
 }
 
-function divMake(target, [className]) {
+function divMake(target: any[], [className]: [string]) {
     const functionElement = document.createElement("div");
     functionElement.classList.add(className);
     target.forEach((item) => {
