@@ -1,6 +1,6 @@
 createPDFButton();
 
-function createPDFButton() {
+function createLeaQsPDFButton() {
     const targetUrl = "https://lms.omu.ac.jp/mod/meaqs/student/appraisals.php?";
     if (!window.location.href.startsWith(targetUrl)) return;
 
